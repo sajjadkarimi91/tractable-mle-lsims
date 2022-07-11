@@ -16,6 +16,10 @@ addpath(lsim_path)
 
 %% EEG data modelling with LSIMs
 
+% This script uses a part of loading & preproceesing codes from below paper with the following download link:
+%  "An efficient P300-based brain-computer interface for disabled subjects"
+% https://www.epfl.ch/labs/mmspg/research/page-58317-en-html/bci-2/bci_datasets/
+
 sub_numbers =[1,2,3,4,6,7,8,9]; % 8 subjects in EPFL dataset
 
 
