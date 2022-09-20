@@ -18,20 +18,16 @@ test_number = 10;
 max_repeat = 1000;
 
 
-for C = 2 %C is number of channels in CHMM
+for C = 2:5 %C is number of channels in CHMM
 
-    for T = 5:5:10    % T  number of time samples
+    for T = [5,10]   % T  number of time samples
 
         k1 = 0;
         for train_number = [10,15,20]
 
             k1=k1+1;
-
+            clc
             parfor repeat_num = 1:max_repeat
-                clc
-                C
-                T
-                train_number
                 [scores_lsim(repeat_num,:), scores_hmm(repeat_num,:), scores_chmm(repeat_num,:), scores_svm(repeat_num,:), Label(repeat_num,:)] = sim_calassification_chmm(C,T,train_number, test_number);
             end
 
@@ -80,14 +76,15 @@ clc
 load([results_dir,'/lsim_chmm_hmm_svm.mat'])
 
 
-C = 2:3; %C is number of channels in CHMM
+
+C = 5; %C is number of channels in CHMM
 T = 5:5:10;    % T  number of time samples
 train_number = [10,15,20];
 
-
-ACC_chmm(C,T,train_number) ;
-ACC_hmm(C,T,train_number) ;
-ACC_svm(C,T,train_number) ;
+squeeze(ACC_lsim(C,T,train_number) )
+squeeze(ACC_chmm(C,T,train_number) )
+squeeze(ACC_hmm(C,T,train_number)) 
+squeeze(ACC_svm(C,T,train_number)) 
 
 
 

@@ -158,15 +158,15 @@ end
 
 %% Training LSIM from observations for model 1
 
-max_itration = 100;
+max_itration = 30;
 extra.plot=0;
 extra.check_convergence = 0;
 extra.time_series = 0;
 
 
-state_numbers_all = 2:7;
-num_gmm_component_all = [ones(1,length(state_numbers_all)),2*ones(1,length(state_numbers_all)),3*ones(1,length(state_numbers_all))];
-state_numbers_all = [state_numbers_all,state_numbers_all,state_numbers_all];
+state_numbers_all = 2:4;
+num_gmm_component_all = [ones(1,length(state_numbers_all)),2*ones(1,length(state_numbers_all))];
+state_numbers_all = [state_numbers_all,state_numbers_all];
 
 max_reinit = 3;
 max_s = length(state_numbers_all);
@@ -184,7 +184,7 @@ for s = 1:length(state_numbers_all)
     Channel_Num_States_t =state_numbers_all(s)*ones(1,C);
     num_gmm_component_temp(1:C) = num_gmm_component_all(s);
     
-    parfor reinit_num = 1:max_reinit
+    for reinit_num = 1:max_reinit
         
         
         [pi_0_chmm_temp , coupling_tetha_convex_comb_temp , transition_matrices_convex_comb_temp ,  chmm_gmm_para_temp ,  AIC, log_likelyhood , BIC ,pi_steady] = ...
@@ -216,7 +216,7 @@ for s = 1:length(state_numbers_all)
     Channel_Num_States_t =state_numbers_all(s)*ones(1,C);
     num_gmm_component_temp(1:C) = num_gmm_component_all(s);
     
-    parfor reinit_num = 1:max_reinit
+    for reinit_num = 1:max_reinit
         
         [pi_0_chmm_temp , coupling_tetha_convex_comb_temp , transition_matrices_convex_comb_temp ,  chmm_gmm_para_temp ,  AIC, log_likelyhood , BIC ,pi_steady] = ...
             em_lsim( train_obs_chmm_2 , Channel_Num_States_t , num_gmm_component_temp , max_itration , extra);
@@ -273,15 +273,15 @@ Label = [ones(1,test_number),zeros(1,test_number)];
 
 %% Training CHMM from observations for model 1
 
-max_itration = 50;
+max_itration = 30;
 extra.plot=0;
 extra.check_convergence = 0;
 extra.time_series = 0;
 
 
-state_numbers_all = 2:4;
-num_gmm_component_all = [ones(1,length(state_numbers_all)),2*ones(1,length(state_numbers_all)),3*ones(1,length(state_numbers_all))];
-state_numbers_all = [state_numbers_all,state_numbers_all,state_numbers_all];
+state_numbers_all = 2:3;
+num_gmm_component_all = [ones(1,length(state_numbers_all))];
+state_numbers_all = [state_numbers_all];
 
 max_reinit = 2;
 max_s = length(state_numbers_all);
@@ -299,7 +299,7 @@ for s = 1:length(state_numbers_all)
     Channel_Num_States_t =state_numbers_all(s)*ones(1,C);
     num_gmm_component_temp(1:C) = num_gmm_component_all(s);
     
-    parfor reinit_num = 1:max_reinit
+    for reinit_num = 1:max_reinit
         
         
         [pi_0_chmm_temp , transition_matrices_convex_comb_temp ,  chmm_gmm_para_temp ,  AIC, log_likelyhood , BIC ,pi_steady] = ...
@@ -384,7 +384,7 @@ Label_chmm = [ones(1,test_number),zeros(1,test_number)];
 
 % Training CHMM from observations for model 1
 
-state_numbers_all = 3:14;
+state_numbers_all = 2:8;
 C1 = 1;
 num_gmm_component_all = [ones(1,length(state_numbers_all)),2*ones(1,length(state_numbers_all)),3*ones(1,length(state_numbers_all))];
 state_numbers_all = [state_numbers_all,state_numbers_all,state_numbers_all];
@@ -397,14 +397,14 @@ pi_0_chmm_par{max_reinit,max_s}=[];
 coupling_tetha_convex_comb_par{max_reinit,max_s}=[];
 transition_matrices_convex_par{max_reinit,max_s}=[];
 chmm_gmm_para_par{max_reinit,max_s}=[];
-max_itration = 100;
+max_itration = 50;
 
 for s = 1:1:length(state_numbers_all)
     
     Channel_Num_States_t =state_numbers_all(s)*ones(1,C1);
     num_gmm_component_1 = num_gmm_component_all(s);
     
-    parfor reinit_num = 1:max_reinit
+    for reinit_num = 1:max_reinit
         
         [ pi_0_temp , Coupling_Tetha_temp , transitions_matrices_temp ,  hmm_gmm_para_temp ,  AIC  ] = em_lsim( train_obs_hmm_1 , Channel_Num_States_t , num_gmm_component_1 , max_itration , extra);
         
@@ -434,7 +434,7 @@ for s = 1:1:length(state_numbers_all)
     Channel_Num_States_t =state_numbers_all(s)*ones(1,C1);
     num_gmm_component_1 = num_gmm_component_all(s);
     
-    parfor reinit_num = 1:max_reinit
+    for reinit_num = 1:max_reinit
         
         [ pi_0_temp , Coupling_Tetha_temp , transitions_matrices_temp ,  hmm_gmm_para_temp ,  AIC  ] = em_lsim( train_obs_hmm_2 , Channel_Num_States_t , num_gmm_component_1 , max_itration , extra);
         
