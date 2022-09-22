@@ -148,7 +148,7 @@ for s = 3: length(state_numbers_all)
         try
 
             [pi_0_chmm,  transition_chmm, chmm_gmm_para,  log_likelihood, AIC, BIC] =...
-                em_chmm_exact( channels_observations , channel_num_states , num_gmm_component , max_itration , extra);
+                em_chmm( channels_observations , channel_num_states , num_gmm_component , max_itration , extra);
             model_rep{rp}.chmm_gmm_para = chmm_gmm_para;
             model_rep{rp}.transition_matrices = transition_chmm;
             model_rep{rp}.coupling_tetha = 1;

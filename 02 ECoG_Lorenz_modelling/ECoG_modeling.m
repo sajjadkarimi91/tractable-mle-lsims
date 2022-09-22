@@ -118,7 +118,7 @@ best_lsim_bic{1}.pi_0 = lsim_models{Index_min}.pi_0 ;
 
 clear Log_rep hmm_models model_rep BIC_hmm
 
-state_numbers_chmm = 2:7;
+state_numbers_chmm = 2:6;
 state_numbers_all = state_numbers_chmm;
 num_gmm_component_all = ones(1,length(state_numbers_all));
 
@@ -146,7 +146,7 @@ for s = 5: length(state_numbers_all)
         try
 
             [pi_0_chmm,  transition_chmm, chmm_gmm_para,  log_likelihood, AIC, BIC] =...
-                em_chmm_exact( channels_observations , channel_num_states , num_gmm_component , max_itration , extra);
+                em_chmm( channels_observations , channel_num_states , num_gmm_component , max_itration , extra);
             model_rep{rp}.chmm_gmm_para = chmm_gmm_para;
             model_rep{rp}.transition_matrices = transition_chmm;
             model_rep{rp}.coupling_tetha = 1;
